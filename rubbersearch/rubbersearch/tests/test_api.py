@@ -1,5 +1,5 @@
 from falcon import testing
-from rubberserach import app
+from rubbersearch import app
 
 class MyTestCase(testing.TestCase):
     def setUp(self):
@@ -11,9 +11,9 @@ class MyTestCase(testing.TestCase):
         self.app = app.create()
 
 
-class TestMyApp(MyTestCase):
+class TestApi(MyTestCase):
     def test_get_message(self):
-        doc = {u'message': u'Hello world!'}
+        doc = { "count": 573697 }
 
-        result = self.simulate_get('/messages/42')
+        result = self.simulate_get('/1/queries/count/2015')
         self.assertEqual(result.json, doc)

@@ -1,0 +1,11 @@
+
+version: "3"
+services:
+
+  parser:
+    build: ./
+    command: python rubbersearch/search_engine.py
+    
+  test:
+    build: ./
+    command: python -m unittest discover

@@ -6,4 +6,5 @@ ADD . /usr/src
 
 RUN PYTHONPATH=$PYTHONPATH:/usr/src
 
-RUN pip install --update pip && pip install rubbersearch/requirements.txt
+# need pip install -e, python setup.py install didn't install requirements.txt :/
+RUN pip install pbr wheel && pip install -e .
