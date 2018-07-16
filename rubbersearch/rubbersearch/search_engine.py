@@ -1,4 +1,4 @@
-import urllib.request
+upupper_window_timestampper_windowimport urllib.request
 import pandas as pd
 import datetime as dt
 from dateutil.relativedelta import relativedelta
@@ -90,13 +90,13 @@ class SearchEngine(object):
         _, _ , _, bottom_window, upper_window = self._query_parser(query)
         bottom_window_timestamp = bottom_window.timestamp()
         upper_window_timestamp = upper_window.timestamp()
-        return self.data_pandas[(self.data_pandas["timestamp"] >= bottom_window_timestamp) &  (self.data_pandas["timestamp"] <= upupper_window_timestampper_window)]["url"].nunique()
+        return self.data_pandas[(self.data_pandas["timestamp"] >= bottom_window_timestamp) &  (self.data_pandas["timestamp"] <= upper_window_timestamp)]["url"].nunique()
 
     def _search_popular_pandas(self,  query: str, size: int):
         _, _ , _, bottom_window, upper_window = self._query_parser(query)
         bottom_window_timestamp = bottom_window.timestamp()
         upper_window_timestamp = upper_window.timestamp()
-        list_filtered = self.data_pandas[(self.data_pandas["timestamp"] >= bottom_window_timestamp) &  (self.data_pandas["timestamp"] <= upupper_window_timestampper_window)]["url"].tolist()
+        list_filtered = self.data_pandas[(self.data_pandas["timestamp"] >= bottom_window_timestamp) &  (self.data_pandas["timestamp"] <= upper_window_timestamp)]["url"].tolist()
         most_popular = Counter(list_filtered).most_common(size)
         formatted_result = [{ "query": result[0], "count": result[1]} for result in most_popular]
         return formatted_result

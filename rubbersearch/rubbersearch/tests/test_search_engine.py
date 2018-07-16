@@ -17,9 +17,9 @@ class TestParser(unittest.TestCase):
             { "query": "http%3A%2F%2Fwebboard.yenta4.com%2Ftopic%2F568045", "count": 4652 },
             { "query": "http%3A%2F%2Fwebboard.yenta4.com%2Ftopic%2F379035%3Fsort%3D1", "count": 3100 }
         ]
-        self.assertEqual(expected_result_2015, SEARCH_ENGINE.search_popular("2015", "pandas"))
-        self.assertEqual(expected_result_2015, SEARCH_ENGINE.search_popular("2015", "list"))
-        self.assertEqual(expected_result_2015, SEARCH_ENGINE.search_popular("2015", "hashmap"))
+        self.assertEqual(expected_result_2015, SEARCH_ENGINE.search_popular("2015", 3, "pandas"))
+        self.assertEqual(expected_result_2015, SEARCH_ENGINE.search_popular("2015", 3, "list"))
+        self.assertEqual(expected_result_2015, SEARCH_ENGINE.search_popular("2015", 3, "hashmap"))
 
 if __name__ == "__main__":
     unittest.main()
