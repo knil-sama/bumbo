@@ -8,7 +8,7 @@ SEARCH_ENGINE = SearchEngine("https://www.dropbox.com/s/duv704waqjp3tu1/hn_logs.
 class CountResource:
     def on_get(self, req, resp, date_prefix):
         """Handles GET requests"""
-        result = { "count": SEARCH_ENGINE.search_count(req, "pandas") }
+        result = { "count": SEARCH_ENGINE.search_count(date_prefix, "pandas") }
         resp.media = result
 
 

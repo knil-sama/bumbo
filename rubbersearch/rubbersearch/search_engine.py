@@ -1,4 +1,4 @@
-upupper_window_timestampper_windowimport urllib.request
+import urllib.request
 import pandas as pd
 import datetime as dt
 from dateutil.relativedelta import relativedelta
@@ -30,10 +30,10 @@ class SearchEngine(object):
         data["request_info"] = data.apply(lambda row: RequestInfo(row["timestamp"], row["url"]), axis="columns")
         self.data_pandas = data
         self.data_structure_list = data["request_info"].tolist()
-        data.apply(lambda row, data_structure=self.data_structure_hashmap:
-         data_structure.get(row["datetime"].year, dict())
-         .get(row["datetime"].month, dict())
-         .get(row["datetime"].day, list()).append(row["request_info"]), axis="columns")
+        #data.apply(lambda row, data_structure=self.data_structure_hashmap:
+        # data_structure.get(row["datetime"].year, dict())
+        # .get(row["datetime"].month, dict())
+        # .get(row["datetime"].day, list()).append(row["request_info"]), axis="columns")
 
     def _query_parser(self, query):
         """
@@ -54,10 +54,8 @@ class SearchEngine(object):
 
     def _filtered_url_list(self, query: str):
         _, _, _, bottom_window, upper_window = self._query_parser(query)
-        print(f"bottom_window {bottom_window}, upper_window {upper_window}")
         bottom_window_timestamp = bottom_window.timestamp()
         upper_window_timestamp = upper_window.timestamp() 
-        print(f"bottom_window_timestamp {bottom_window_timestamp}, upper_window_timestamp {upper_window_timestamp}")
         index_bottom =None
         index_upper =None
         for index, value in enumerate(self.data_structure_list):
@@ -80,19 +78,19 @@ class SearchEngine(object):
         else:
             return 0
 
-    def _search_popular_list(self,  query: str):
+    def _search_popular_list(self, query: str, size: int):
         filtered_urls = self._filtered_url_list(query)
-        most_popular = Counter(filtered_urls).most_common(size)
+        most_popular = Counter([value.url for value in filtered_urls]).most_common(size)
         formatted_result = [{ "query": result[0], "count": result[1]} for result in most_popular]
         return formatted_result
 
-    def _search_count_pandas(self,  query: str):
+    def _search_count_pandas(self, query: str):
         _, _ , _, bottom_window, upper_window = self._query_parser(query)
         bottom_window_timestamp = bottom_window.timestamp()
         upper_window_timestamp = upper_window.timestamp()
-        return self.data_pandas[(self.data_pandas["timestamp"] >= bottom_window_timestamp) &  (self.data_pandas["timestamp"] <= upper_window_timestamp)]["url"].nunique()
+        return self.data_pandas[(self.data_pandas["timestamp"] >= bottom_window_timestamp) &  (self.data_pandas["timestamp"] <= upper_window_timestamp)]["url"].nunique(dropna=False)
 
-    def _search_popular_pandas(self,  query: str, size: int):
+    def _search_popular_pandas(self, query: str, size: int):
         _, _ , _, bottom_window, upper_window = self._query_parser(query)
         bottom_window_timestamp = bottom_window.timestamp()
         upper_window_timestamp = upper_window.timestamp()
@@ -100,23 +98,6 @@ class SearchEngine(object):
         most_popular = Counter(list_filtered).most_common(size)
         formatted_result = [{ "query": result[0], "count": result[1]} for result in most_popular]
         return formatted_result
-
-    def _search_count_hashmap(self, query: str):
-        year, month, day = _query_parser(query)
-        list_url = list()
-        filtered_path = self.data_structure[year]
-        if month:
-            filtered_path = filtered_result[month]
-            if day:
-                list_url = filtered_result[day]
-            else:
-                for urls in filtered_result.values():
-                    list_url.append(urls)
-        else:
-            for day_dict in list(filtered_path.values()):
-                list_url.append(list(day_dict.values()))
-        # todo filter on hours
-        return len(list_url)
 
     def _search_popular_hashmap(self,  query: str, size: int):
         return []
