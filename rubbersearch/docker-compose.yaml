@@ -9,6 +9,8 @@ services:
   api:
     build: ./
     command: python rubbersearch/app.py
+    ports:
+      - "8000:8000"
 
   test:
     build: ./

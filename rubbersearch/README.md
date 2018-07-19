@@ -14,9 +14,16 @@ https://gist.github.com/sfriquet/55b18848d6d58b8185bbada81c620c4a
 
 `docker-compose up --build api`
 
+
+# To call api
+
+Endpoint count: localhost:8000/1/queries/count/2015-08-02
+
+Endpoint popular: localhost:8000/1/queries/popular/date_prefix=2015-08-02&size=5
+
 # Warning
 
-After the building stage the program will download the dataset and parse, this process take between **15 and 30 min**
+After the building stage the program will download the dataset and parse, this process take between **5 and 15 min**
 
 # About assignment
 

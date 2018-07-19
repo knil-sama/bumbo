@@ -286,9 +286,3 @@ class SearchEngine:
         elif(data_structure_choice == "pandas"):
             result = self._search_popular_pandas(query, size)
         return result
-
-if __name__ == '__main__':
-    search_engine = SearchEngine("https://www.dropbox.com/s/duv704waqjp3tu1/hn_logs.tsv.gz?dl=1")
-    # print(search_engine)
-    print(search_engine.data_pandas.head())
-    print(search_engine.search_count("2015", "list"))
