@@ -31,7 +31,7 @@ class TestApi(MyTestCase):
             { "query": "http%3A%2F%2Fwebboard.yenta4.com%2Ftopic%2F379035%3Fsort%3D1", "count": 3100 }
             ]
         }
-        result = self.simulate_get('/1/queries/popular' ,query_string='date_prefix=2015&size=3')
+        result = self.simulate_get('/1/queries/popular' ,query_string='/2015&size=3')
         self.assertEqual(result.json, doc)
 
     def test_get_call_popular_day(self):
@@ -44,5 +44,5 @@ class TestApi(MyTestCase):
             ]
         }
         self.maxDiff = None
-        result = self.simulate_get('/1/queries/popular', query_string='date_prefix=2015-08-02&size=5')
+        result = self.simulate_get('/1/queries/popular', query_string='/2015-08-02&size=5')
         self.assertEqual(result.json, doc)

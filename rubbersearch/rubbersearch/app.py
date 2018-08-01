@@ -32,7 +32,7 @@ class PopularResource:
     """
     Rest API resource for popular endpoint
     """
-    def on_get(self, req, resp):
+    def on_get(self, req, resp, date_prefix):
         """Handles GET requests
 
         Top n with count of total queries for a delimited time period, in descending order
@@ -42,7 +42,6 @@ class PopularResource:
             resp: Response to return
         """
         #small optimisation for date_prefix that have a day scope
-        date_prefix = req.get_param('date_prefix') or 5
         size = req.get_param_as_int('size') or 5
         if len(date_prefix) >= 10:
             result = { "queries": SEARCH_ENGINE.search_popular(date_prefix, size, "hashmap") }
@@ -59,7 +58,7 @@ def create():
     """
     api = falcon.API()
     api.add_route(f'/{VERSION}/{API}/count/{{date_prefix}}', CountResource())
-    api.add_route(f'/{VERSION}/{API}/popular', PopularResource())
+    api.add_route(f'/{VERSION}/{API}/popular/{{date_prefix}}', PopularResource())
     return api
 
 if __name__ == '__main__':
